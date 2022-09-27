@@ -1,0 +1,35 @@
+market<- read.csv("C:/Users/Tade/Documents/Uni work/Year2/Statistical modelling/Marketdata.csv")
+
+x1<- market[ ,1]
+x2<- market[ ,2]
+x3<- market[ ,3]
+y<- market[ ,4]
+
+model1<-lm(y~x1)
+summary(model1)
+
+model2<-lm(y~x2)
+summary(model2)
+
+model3<-lm(y~x1+x2)
+summary(model3)
+
+stdres1<-rstandard(model1)
+shapiro.test(stdres1)
+
+stdres2<-rstandard(model2)
+shapiro.test(stdres2)
+
+stdres3<-rstandard(model3)
+shapiro.test(stdres3)
+
+predictedvalues<-predict(model1,newdata=data.frame(x=x1),interval='prediction')
+predictedvalues
+
+pred95<-predict(model1,newdata=data.frame(x=x1),interval='prediction',level=0.95)
+pred90<-predict(model1,newdata=data.frame(x=x1),interval='prediction',level=0.9)
+
+pred95
+pred90
+
+y-predictedvalues[,1]
