@@ -1,0 +1,25 @@
+Hitters <- read.csv("C:/Users/Tade/Documents/Uni work/Year2/Statistical modelling/Hitters.csv")
+
+Hitters =na.omit(Hitters)
+View(Hitters)
+install.packages("leaps")
+library(leaps)
+bestsubset<-regsubsets(Salary~.,Hitters,nvmax=20)
+best.subset.summary<-summary(bestsubset)
+best.subset.summary$outmat
+best.subset.summary$adjr2
+best.subset.summary$cp
+
+no.of.variables.adjr2 <- which.max(best.subset.summary$adjr2)
+no.of.variables.adjr2
+no.of.variables.cp <- which.min(best.subset.summary$cp)
+no.of.variables.cp
+plot(best.subset.summary$adjr2,type = )
+plot(best.subset.summary$cp, type = )
+
+coef(bestsubset,10)
+model10 <- lm(Salary~AtBat + Hits + Walks + CAtBat + CRuns + CRBI + CWalks + Division + PutOuts + Assists , Hitters)
+summary(model10)
+coef(bestsubset,11)
+model11 <- lm(Salary~AtBat + Hits + Walks + CAtBat + CRuns + CRBI + CWalks + Division + PutOuts + Assists + League , Hitters)
+summary(model11)
